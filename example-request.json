@@ -1,0 +1,636 @@
+{
+  "input": {
+    "workflow": {
+      "298": {
+        "inputs": {
+          "samples": [
+            "829",
+            0
+          ],
+          "vae": [
+            "899",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "701": {
+        "inputs": {
+          "value": 1,
+          "model": [
+            "779",
+            0
+          ]
+        },
+        "class_type": "ModelSamplingAuraFlow",
+        "_meta": {
+          "title": "Flow Shift"
+        }
+      },
+      "710": {
+        "inputs": {
+          "filename": "ae.safetensors"
+        },
+        "class_type": "VAELoader",
+        "_meta": {
+          "title": "VAELoader"
+        }
+      },
+      "731": {
+        "inputs": {
+          "filename": "uncannyPhotorealism_v10.safetensors"
+        },
+        "class_type": "UNETLoader",
+        "_meta": {
+          "title": "UNETLoader"
+        }
+      },
+      "733": {
+        "inputs": {
+          "filename": "flan-t5-xxl-fp16.safetensors"
+        },
+        "class_type": "CLIPLoader",
+        "_meta": {
+          "title": "CLIPLoader"
+        }
+      },
+      "737": {
+        "inputs": {
+          "width": 1024,
+          "height": 1024,
+          "batch_size": 1
+        },
+        "class_type": "EmptySD3LatentImage",
+        "_meta": {
+          "title": "EmptySD3LatentImage"
+        }
+      },
+      "740": {
+        "inputs": {
+          "filename_prefix": "final",
+          "images": [
+            "820",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      },
+      "741": {
+        "inputs": {
+          "value": 1,
+          "clip": [
+            "779",
+            1
+          ]
+        },
+        "class_type": "T5TokenizerOptions",
+        "_meta": {
+          "title": "T5TokenizerOptions"
+        }
+      },
+      "748": {
+        "inputs": {
+          "text": [
+            "876",
+            0
+          ],
+          "clip": [
+            "901",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIP Text Encode (Positive Prompt)"
+        }
+      },
+      "749": {
+        "inputs": {
+          "text": "Bright skin. The lighting is even. The lighting is harsh. The image is bright. the people are overlit.  The skintones are white.  The white ballance is wrong and everything is yellow. There's a watermark and a signature. Fake Tits.  Breast implants. The image is bright.  Wierd anatomy.  Airbrushed skin.  the skin is smooth and has no wrinkles or pores.",
+          "clip": [
+            "902",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIP Text Encode (Negative Prompt)"
+        }
+      },
+      "779": {
+        "inputs": {
+          "value": {},
+          "model": [
+            "731",
+            0
+          ],
+          "clip": [
+            "733",
+            0
+          ]
+        },
+        "class_type": "Power Lora Loader (rgthree)",
+        "_meta": {
+          "title": "Power Lora Loader (rgthree)"
+        }
+      },
+      "819": {
+        "inputs": {
+          "model_name": "4xNomosWebPhoto_RealPLKSR.safetensors"
+        },
+        "class_type": "UpscaleModelLoader",
+        "_meta": {
+          "title": "UpscaleModelLoader"
+        }
+      },
+      "820": {
+        "inputs": {
+          "value": 2,
+          "image": [
+            "866",
+            0
+          ],
+          "model": [
+            "907",
+            0
+          ],
+          "positive": [
+            "913",
+            0
+          ],
+          "negative": [
+            "912",
+            0
+          ],
+          "vae": [
+            "898",
+            0
+          ],
+          "upscale_model": [
+            "819",
+            0
+          ]
+        },
+        "class_type": "UltimateSDUpscale",
+        "_meta": {
+          "title": "UltimateSDUpscale"
+        }
+      },
+      "828": {
+        "inputs": {
+          "value": 0.6,
+          "model": [
+            "894",
+            0
+          ],
+          "positive": [
+            "911",
+            0
+          ],
+          "negative": [
+            "910",
+            0
+          ],
+          "latent_image": [
+            "737",
+            0
+          ]
+        },
+        "class_type": "ClownsharKSampler_Beta",
+        "_meta": {
+          "title": "ClownsharKSampler_Beta"
+        }
+      },
+      "829": {
+        "inputs": {
+          "value": 0.5,
+          "latent_image": [
+            "848",
+            0
+          ]
+        },
+        "class_type": "ClownsharkChainsampler_Beta",
+        "_meta": {
+          "title": "ClownsharkChainsampler_Beta"
+        }
+      },
+      "848": {
+        "inputs": {
+          "value": 0.53,
+          "latent_image": [
+            "828",
+            0
+          ]
+        },
+        "class_type": "ClownsharkChainsampler_Beta",
+        "_meta": {
+          "title": "ClownsharkChainsampler_Beta"
+        }
+      },
+      "851": {
+        "inputs": {
+          "samples": [
+            "828",
+            0
+          ],
+          "vae": [
+            "895",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "853": {
+        "inputs": {
+          "samples": [
+            "848",
+            0
+          ],
+          "vae": [
+            "896",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "856": {
+        "inputs": {
+          "samples": [
+            "829",
+            0
+          ],
+          "vae": [
+            "897",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "865": {
+        "inputs": {
+          "filename": "sam_vit_b_01ec64.pth"
+        },
+        "class_type": "SAMLoader",
+        "_meta": {
+          "title": "SAMLoader"
+        }
+      },
+      "866": {
+        "inputs": {
+          "value": 1024,
+          "image": [
+            "298",
+            0
+          ],
+          "model": [
+            "904",
+            0
+          ],
+          "clip": [
+            "903",
+            0
+          ],
+          "vae": [
+            "900",
+            0
+          ],
+          "positive": [
+            "908",
+            0
+          ],
+          "negative": [
+            "909",
+            0
+          ],
+          "bbox_detector": [
+            "867",
+            0
+          ],
+          "sam_model_opt": [
+            "865",
+            0
+          ]
+        },
+        "class_type": "FaceDetailer",
+        "_meta": {
+          "title": "FaceDetailer"
+        }
+      },
+      "867": {
+        "inputs": {
+          "filename": "bbox/face_yolov8m.pt"
+        },
+        "class_type": "UltralyticsDetectorProvider",
+        "_meta": {
+          "title": "UltralyticsDetectorProvider"
+        }
+      },
+      "868": {
+        "inputs": {
+          "images": [
+            "866",
+            1
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "Cropped (refined)"
+        }
+      },
+      "869": {
+        "inputs": {
+          "images": [
+            "871",
+            0
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "Mask"
+        }
+      },
+      "870": {
+        "inputs": {
+          "images": [
+            "866",
+            2
+          ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+          "title": "Cropped (enhanced alpha)"
+        }
+      },
+      "871": {
+        "inputs": {
+          "mask": [
+            "866",
+            3
+          ]
+        },
+        "class_type": "MaskToImage",
+        "_meta": {
+          "title": "MaskToImage"
+        }
+      },
+      "876": {
+        "inputs": {
+          "text": "append"
+        },
+        "class_type": "StringFunction|pysssss",
+        "_meta": {
+          "title": "StringFunction|pysssss"
+        }
+      },
+      "887": {
+        "inputs": {},
+        "class_type": "f27e34f0-eba8-473d-8c39-1ded8a713b4f",
+        "_meta": {
+          "title": "f27e34f0-eba8-473d-8c39-1ded8a713b4f"
+        }
+      },
+      "891": {
+        "inputs": {
+          "text": "VAE",
+          "VAE": [
+            "710",
+            0
+          ]
+        },
+        "class_type": "easy setNode",
+        "_meta": {
+          "title": "➡️VAE"
+        }
+      },
+      "892": {
+        "inputs": {
+          "text": "MODEL",
+          "MODEL": [
+            "701",
+            0
+          ]
+        },
+        "class_type": "easy setNode",
+        "_meta": {
+          "title": "➡️MODEL"
+        }
+      },
+      "893": {
+        "inputs": {
+          "text": "CLIP",
+          "CLIP": [
+            "741",
+            0
+          ]
+        },
+        "class_type": "easy setNode",
+        "_meta": {
+          "title": "➡️CLIP"
+        }
+      },
+      "894": {
+        "inputs": {
+          "text": "MODEL"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️MODEL"
+        }
+      },
+      "895": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "896": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "897": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "898": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "899": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "900": {
+        "inputs": {
+          "text": "VAE"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️VAE"
+        }
+      },
+      "901": {
+        "inputs": {
+          "text": "CLIP"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️CLIP"
+        }
+      },
+      "902": {
+        "inputs": {
+          "text": "CLIP"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️CLIP"
+        }
+      },
+      "903": {
+        "inputs": {
+          "text": "CLIP"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️CLIP"
+        }
+      },
+      "904": {
+        "inputs": {
+          "text": "MODEL"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️MODEL"
+        }
+      },
+      "905": {
+        "inputs": {
+          "text": "Neg Cond",
+          "CONDITIONING": [
+            "749",
+            0
+          ]
+        },
+        "class_type": "easy setNode",
+        "_meta": {
+          "title": "➡️Neg Cond"
+        }
+      },
+      "906": {
+        "inputs": {
+          "text": "Pos Cond",
+          "CONDITIONING": [
+            "748",
+            0
+          ]
+        },
+        "class_type": "easy setNode",
+        "_meta": {
+          "title": "➡️Pos Cond"
+        }
+      },
+      "907": {
+        "inputs": {
+          "text": "MODEL"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️MODEL"
+        }
+      },
+      "908": {
+        "inputs": {
+          "text": "Pos Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Pos Cond"
+        }
+      },
+      "909": {
+        "inputs": {
+          "text": "Neg Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Neg Cond"
+        }
+      },
+      "910": {
+        "inputs": {
+          "text": "Neg Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Neg Cond"
+        }
+      },
+      "911": {
+        "inputs": {
+          "text": "Pos Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Pos Cond"
+        }
+      },
+      "912": {
+        "inputs": {
+          "text": "Neg Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Neg Cond"
+        }
+      },
+      "913": {
+        "inputs": {
+          "text": "Pos Cond"
+        },
+        "class_type": "easy getNode",
+        "_meta": {
+          "title": "⬅️Pos Cond"
+        }
+      }
+    }
+  }
+}

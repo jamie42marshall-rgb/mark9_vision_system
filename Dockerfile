@@ -53,73 +53,48 @@ RUN cd /tmp/civitai && python download.py \
     --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
     --url https://civitai.com/models/1662740/lenovo-ultrareal?modelVersionId=2299345
 
-# === COMPREHENSIVE MODEL DIRECTORY DEBUG ===
-RUN echo "
-=========================================
-COMPLETE MODEL DIRECTORY INVENTORY
-=========================================
-" && \
-echo "=== CHECKPOINTS (SDXL/SD models) ===" && \
-ls -lah /comfyui/models/checkpoints/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== UNET (Flux/Lumina diffusion models) ===" && \
-ls -lah /comfyui/models/unet/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== DIFFUSION_MODELS (Alternative diffusion location) ===" && \
-ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== LORA ===" && \
-ls -lah /comfyui/models/lora/ 2>/dev/null || echo "Directory not found" && \
-ls -lah /comfyui/models/Lora/ 2>/dev/null || echo "Directory not found (case variant)" && \
-echo "" && \
-echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
-ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== CLIP (Alternative text encoder location) ===" && \
-ls -lah /comfyui/models/clip/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== VAE ===" && \
-ls -lah /comfyui/models/vae/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== UPSCALE_MODELS ===" && \
-ls -lah /comfyui/models/upscale_models/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== ULTRALYTICS (YOLO detection) ===" && \
-ls -lah /comfyui/models/ultralytics/bbox/ 2>/dev/null || echo "Directory not found" && \
-ls -lah /comfyui/models/ultralytics/segm/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== SAMS (Segment Anything) ===" && \
-ls -lah /comfyui/models/sams/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== CONTROLNET ===" && \
-ls -lah /comfyui/models/controlnet/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== EMBEDDINGS (Textual Inversion) ===" && \
-ls -lah /comfyui/embeddings/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== HYPERNETWORKS ===" && \
-ls -lah /comfyui/models/hypernetworks/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== STYLE_MODELS ===" && \
-ls -lah /comfyui/models/style_models/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== OTHER ===" && \
-ls -lah /comfyui/models/other/ 2>/dev/null || echo "Directory not found" && \
-echo "" && \
-echo "=== ALL MODEL SUBDIRECTORIES ===" && \
-find /comfyui/models/ -type d -maxdepth 2 2>/dev/null && \
-echo "" && \
-echo "=== TOTAL FILE COUNTS ===" && \
-echo "Checkpoints:" && find /comfyui/models/checkpoints/ -type f 2>/dev/null | wc -l && \
-echo "UNet:" && find /comfyui/models/unet/ -type f 2>/dev/null | wc -l && \
-echo "Diffusion Models:" && find /comfyui/models/diffusion_models/ -type f 2>/dev/null | wc -l && \
-echo "LoRAs:" && find /comfyui/models/lora/ /comfyui/models/Lora/ -type f 2>/dev/null | wc -l && \
-echo "Upscalers:" && find /comfyui/models/upscale_models/ -type f 2>/dev/null | wc -l && \
-echo "
-=========================================
-END MODEL INVENTORY
-=========================================
-"
+RUN echo "=========================================" && \
+    echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
+    echo "=========================================" && \
+    echo "" && \
+    echo "=== CHECKPOINTS (SDXL/SD models) ===" && \
+    ls -lah /comfyui/models/checkpoints/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== UNET (Flux/Lumina diffusion models) ===" && \
+    ls -lah /comfyui/models/unet/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== DIFFUSION_MODELS ===" && \
+    ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== LORA ===" && \
+    ls -lah /comfyui/models/lora/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
+    ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== CLIP ===" && \
+    ls -lah /comfyui/models/clip/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== VAE ===" && \
+    ls -lah /comfyui/models/vae/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== UPSCALE_MODELS ===" && \
+    ls -lah /comfyui/models/upscale_models/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== CONTROLNET ===" && \
+    ls -lah /comfyui/models/controlnet/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== EMBEDDINGS ===" && \
+    ls -lah /comfyui/embeddings/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== ULTRALYTICS ===" && \
+    ls -lah /comfyui/models/ultralytics/bbox/ 2>/dev/null || echo "Directory not found" && \
+    ls -lah /comfyui/models/ultralytics/segm/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "=== SAMS ===" && \
+    ls -lah /comfyui/models/sams/ 2>/dev/null || echo "Directory not found" && \
+    echo "" && \
+    echo "========================================="
 
 # Cleanup
 RUN rm -rf /tmp/civitai

@@ -53,7 +53,7 @@ RUN cd /tmp/civitai && python download.py \
     --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
     --url https://civitai.com/models/1662740/lenovo-ultrareal?modelVersionId=2299345
 
-RUN echo "=========================================" && \
+RUN echo "-=======================================-" && \
     echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
     echo "=========================================" && \
     echo "" && \

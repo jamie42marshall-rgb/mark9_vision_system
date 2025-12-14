@@ -32,7 +32,7 @@ RUN git clone https://github.com/deepratna-awale/CivitAI-Model-Downloader.git /t
 RUN cd /tmp/civitai && python download.py \
     --sd /comfyui \
     --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
-    --url https://civitai.com/models/2086389/uncanny-photorealism-chroma?modelVersionId=2420275
+    --url https://civitai.com/models/2086389?modelVersionId=2360624
 
 #Loras:
 #analog dreams lora  "qsbrtuysk"

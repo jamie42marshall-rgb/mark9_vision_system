@@ -15,45 +15,46 @@ RUN comfy model download --url https://huggingface.co/silveroxides/flan-t5-xxl-e
 RUN comfy model download --url https://huggingface.co/Comfy-Org/Lumina_Image_2.0_Repackaged/resolve/main/split_files/vae/ae.safetensors --relative-path models/vae --filename ae.safetensors
 RUN comfy model download --url https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt --relative-path models/ultralytics/bbox --filename face_yolov8m.pt
 
-
-# RUN # Could not find URL for 4xNomosWebPhoto_RealPLKSR.safetensors
 # Add the upscaler
 RUN comfy model download \
     --url https://huggingface.co/Phips/4xNomosWebPhoto_RealPLKSR/resolve/main/4xNomosWebPhoto_RealPLKSR.safetensors \
     --relative-path models/upscale_models \
     --filename 4xNomosWebPhoto_RealPLKSR.safetensors
 
+# Create directories for CivitAI models
+RUN mkdir -p /comfyui/models/unet /comfyui/models/loras
 
-RUN git clone https://github.com/deepratna-awale/CivitAI-Model-Downloader.git /tmp/civitai && \
-    pip install -r /tmp/civitai/requirements.txt
+# Download uncanny photorealism checkpoint via CivitAI API
+RUN echo "Downloading uncannyPhotorealism_v10..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2360624?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -O /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
+    echo "Download complete!"
 
+# Download LoRAs via CivitAI API
+# Analog dreams lora
+RUN echo "Downloading analog-dreams LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2435339?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
 
-# RUN # Could not find URL for uncannyPhotorealism_v10.safetensors
-RUN cd /tmp/civitai && python download.py \
-    --sd /comfyui \
-    --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
-    --url https://civitai.com/models/2086389?modelVersionId=2360624
+# Prof photo lora
+RUN echo "Downloading prof-photo LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2271596?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
 
-#Loras:
-#analog dreams lora  "qsbrtuysk"
-RUN cd /tmp/civitai && python download.py \
-    --sd /comfyui \
-    --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
-    --url https://civitai.com/models/2162499/analog-dreams?modelVersionId=2435339
+# Lenovo lora
+RUN echo "Downloading lenovo-ultrareal LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2299345?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
 
-# prof photo lora
-RUN cd /tmp/civitai && python download.py \
-    --sd /comfyui \
-    --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
-    --url https://civitai.com/models/1908534?modelVersionId=2271596
-
-#lenovo lora
-RUN cd /tmp/civitai && python download.py \
-    --sd /comfyui \
-    --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
-    --url https://civitai.com/models/1662740/lenovo-ultrareal?modelVersionId=2299345
-
-RUN echo "-=======================================-" && \
+# === COMPREHENSIVE MODEL DIRECTORY DEBUG ===
+RUN echo "=========================================" && \
     echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
     echo "=========================================" && \
     echo "" && \
@@ -66,8 +67,8 @@ RUN echo "-=======================================-" && \
     echo "=== DIFFUSION_MODELS ===" && \
     ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
     echo "" && \
-    echo "=== LORA ===" && \
-    ls -lah /comfyui/models/lora/ 2>/dev/null || echo "Directory not found" && \
+    echo "=== LORAS ===" && \
+    ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
     echo "" && \
     echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
     ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
@@ -95,10 +96,6 @@ RUN echo "-=======================================-" && \
     ls -lah /comfyui/models/sams/ 2>/dev/null || echo "Directory not found" && \
     echo "" && \
     echo "========================================="
-
-# Cleanup
-RUN rm -rf /tmp/civitai
-
 
 # copy all input data (like images or videos) into comfyui (uncomment and adjust if needed)
 # COPY input/ /comfyui/input/

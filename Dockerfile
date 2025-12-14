@@ -13,32 +13,36 @@ RUN comfy node install --exit-on-fail comfyui-custom-scripts@1.2.5
 # Create directories for CivitAI models
 RUN mkdir -p /comfyui/models/unet /comfyui/models/loras
 
-# Download uncanny photorealism checkpoint via CivitAI API
+# Download uncanny photorealism checkpoint via CivitAI API (using header auth)
 RUN echo "Downloading uncannyPhotorealism_v10..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2360624?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
+    --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2360624?type=Model&format=SafeTensor" \
     -O /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
     echo "Download complete!"
 
-# Download LoRAs via CivitAI API
+# Download LoRAs via CivitAI API (using header auth)
 # Analog dreams lora
 RUN echo "Downloading analog-dreams LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2435339?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
+    --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2435339?type=Model&format=SafeTensor" \
     -P /comfyui/models/loras/ && \
     echo "Download complete!"
 
 # Prof photo lora
 RUN echo "Downloading prof-photo LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2271596?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
+    --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2271596?type=Model&format=SafeTensor" \
     -P /comfyui/models/loras/ && \
     echo "Download complete!"
 
 # Lenovo lora
 RUN echo "Downloading lenovo-ultrareal LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2299345?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
+    --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2299345?type=Model&format=SafeTensor" \
     -P /comfyui/models/loras/ && \
     echo "Download complete!"
 

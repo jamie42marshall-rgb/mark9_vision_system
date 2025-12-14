@@ -34,7 +34,7 @@ RUN cd /tmp/civitai && python download.py \
     --api-key aae9ce012e1d88cbc7bcf0bb38f0eafe \
     --url https://civitai.com/models/2086389/uncanny-photorealism-chroma?modelVersionId=2420275
 
-Loras:
+#Loras:
 #analog dreams lora  "qsbrtuysk"
 RUN cd /tmp/civitai && python download.py \
     --sd /comfyui \

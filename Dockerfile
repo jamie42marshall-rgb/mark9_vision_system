@@ -13,37 +13,33 @@ RUN comfy node install --exit-on-fail comfyui-custom-scripts@1.2.5
 # Create directories for CivitAI models
 RUN mkdir -p /comfyui/models/unet /comfyui/models/loras
 
-# Download uncanny photorealism checkpoint via CivitAI API (using header auth)
+# Download uncanny photorealism checkpoint via CivitAI API (using curl)
 RUN echo "Downloading uncannyPhotorealism_v10..." && \
-    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
-    --content-disposition --show-progress \
+    curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2360624?type=Model&format=SafeTensor" \
-    -O /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
+    -o /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
     echo "Download complete!"
 
-# Download LoRAs via CivitAI API (using header auth)
+# Download LoRAs via CivitAI API (using curl)
 # Analog dreams lora
 RUN echo "Downloading analog-dreams LoRA..." && \
-    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
-    --content-disposition --show-progress \
+    curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2435339?type=Model&format=SafeTensor" \
-    -P /comfyui/models/loras/ && \
+    -o /comfyui/models/loras/analog-dreams.safetensors && \
     echo "Download complete!"
 
 # Prof photo lora
 RUN echo "Downloading prof-photo LoRA..." && \
-    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
-    --content-disposition --show-progress \
+    curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2271596?type=Model&format=SafeTensor" \
-    -P /comfyui/models/loras/ && \
+    -o /comfyui/models/loras/prof-photo.safetensors && \
     echo "Download complete!"
 
 # Lenovo lora
 RUN echo "Downloading lenovo-ultrareal LoRA..." && \
-    wget --header="Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
-    --content-disposition --show-progress \
+    curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2299345?type=Model&format=SafeTensor" \
-    -P /comfyui/models/loras/ && \
+    -o /comfyui/models/loras/lenovo-ultrareal.safetensors && \
     echo "Download complete!"
 
 # === DOWNLOAD OTHER MODELS (after CivitAI models) ===

@@ -9,7 +9,40 @@ RUN comfy node install --exit-on-fail RES4LYF
 RUN comfy node install --exit-on-fail comfyui-impact-subpack@1.3.5
 RUN comfy node install --exit-on-fail comfyui-custom-scripts@1.2.5
 
-# download models into comfyui
+# === DOWNLOAD CIVITAI MODELS FIRST (fail fast if these break) ===
+# Create directories for CivitAI models
+RUN mkdir -p /comfyui/models/unet /comfyui/models/loras
+
+# Download uncanny photorealism checkpoint via CivitAI API
+RUN echo "Downloading uncannyPhotorealism_v10..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2360624?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -O /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
+    echo "Download complete!"
+
+# Download LoRAs via CivitAI API
+# Analog dreams lora
+RUN echo "Downloading analog-dreams LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2435339?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
+
+# Prof photo lora
+RUN echo "Downloading prof-photo LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2271596?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
+
+# Lenovo lora
+RUN echo "Downloading lenovo-ultrareal LoRA..." && \
+    wget --content-disposition --show-progress \
+    "https://civitai.com/api/download/models/2299345?type=Model&format=SafeTensor&token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
+    -P /comfyui/models/loras/ && \
+    echo "Download complete!"
+
+# === DOWNLOAD OTHER MODELS (after CivitAI models) ===
 RUN comfy model download --url https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth --relative-path models/checkpoints --filename sam_vit_b_01ec64.pth
 RUN comfy model download --url https://huggingface.co/silveroxides/flan-t5-xxl-encoder-only/resolve/main/flan-t5-xxl-fp16.safetensors --relative-path models/text_encoders --filename flan-t5-xxl-fp16.safetensors
 RUN comfy model download --url https://huggingface.co/Comfy-Org/Lumina_Image_2.0_Repackaged/resolve/main/split_files/vae/ae.safetensors --relative-path models/vae --filename ae.safetensors
@@ -20,38 +53,6 @@ RUN comfy model download \
     --url https://huggingface.co/Phips/4xNomosWebPhoto_RealPLKSR/resolve/main/4xNomosWebPhoto_RealPLKSR.safetensors \
     --relative-path models/upscale_models \
     --filename 4xNomosWebPhoto_RealPLKSR.safetensors
-
-# Create directories for CivitAI models
-RUN mkdir -p /comfyui/models/unet /comfyui/models/loras
-
-# Download uncanny photorealism checkpoint via CivitAI API
-RUN echo "Downloading uncannyPhotorealism_v10..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2360624?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
-    -O /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
-    echo "Download complete!"
-
-# Download LoRAs via CivitAI API
-# Analog dreams lora
-RUN echo "Downloading analog-dreams LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2435339?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
-    -P /comfyui/models/loras/ && \
-    echo "Download complete!"
-
-# Prof photo lora
-RUN echo "Downloading prof-photo LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2271596?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
-    -P /comfyui/models/loras/ && \
-    echo "Download complete!"
-
-# Lenovo lora
-RUN echo "Downloading lenovo-ultrareal LoRA..." && \
-    wget --content-disposition --show-progress \
-    "https://civitai.com/api/download/models/2299345?token=aae9ce012e1d88cbc7bcf0bb38f0eafa" \
-    -P /comfyui/models/loras/ && \
-    echo "Download complete!"
 
 # === COMPREHENSIVE MODEL DIRECTORY DEBUG ===
 RUN echo "=========================================" && \

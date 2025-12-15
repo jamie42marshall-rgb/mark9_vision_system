@@ -2,9 +2,17 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
 # === H100 GPU OPTIMIZATIONS ===
-# Modify /src/start.sh to support COMFY_EXTRA_ARGS environment variable
-# This adds our custom env var to both launch paths (local and serverless)
-RUN sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /src/start.sh
+# Modify start.sh to support COMFY_EXTRA_ARGS environment variable
+# Check both possible locations and modify whichever exists
+RUN if [ -f /start.sh ]; then \
+        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /start.sh; \
+    elif [ -f /src/start.sh ]; then \
+        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /src/start.sh; \
+    else \
+        echo "ERROR: Could not find start.sh in /start.sh or /src/start.sh"; \
+        find / -name "start.sh" -type f 2>/dev/null; \
+        exit 1; \
+    fi
 
 # Force cache bust for curl installation
 ARG CACHEBUST=1

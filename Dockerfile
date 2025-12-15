@@ -21,6 +21,11 @@ RUN if [ -f /start.sh ]; then \
         exit 1; \
     fi
 
+# Install flash-attn for H100 optimization (adds ~2-3 minutes to build)
+# COMMENTED OUT: Installation is complex and often fails in build environments
+# If you want flash attention, you'll need to add build dependencies first
+# RUN pip install flash-attn --no-build-isolation
+
 # Force cache bust for curl installation
 ARG CACHEBUST=1
 
@@ -73,8 +78,14 @@ RUN comfy model download \
     --relative-path models/upscale_models \
     --filename 4xNomosWebPhoto_RealPLKSR.safetensors
 
+# === VERIFY LORA FILES (debug output during build) ===
+RUN echo "=========================================" && \
+    echo "LORAS DOWNLOADED:" && \
+    ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
+    echo "========================================="
+
 # === COMPREHENSIVE MODEL DIRECTORY DEBUG (commented out to speed up builds) ===
-# Uncomment this section if you need to debug model locations
+# Uncomment sections below if you need to debug other model locations
 # RUN echo "=========================================" && \
 #     echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
 #     echo "=========================================" && \
@@ -88,9 +99,9 @@ RUN comfy model download \
 #     echo "=== DIFFUSION_MODELS ===" && \
 #     ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
 #     echo "" && \
-     echo "=== LORAS ===" && \
-     ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
-     echo "----- end loras -----" && \
+#     echo "=== LORAS ===" && \
+#     ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
 #     echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
 #     ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
 #     echo "" && \

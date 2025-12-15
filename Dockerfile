@@ -33,27 +33,20 @@ RUN echo "Downloading uncannyPhotorealism_v10..." && \
     -o /comfyui/models/unet/uncannyPhotorealism_v10.safetensors && \
     echo "Download complete!"
 
-# Download LoRAs via CivitAI API (using curl)
-# Analog dreams lora
-RUN echo "Downloading analog-dreams LoRA..." && \
+# Download all LoRAs via CivitAI API in one layer (faster builds)
+RUN echo "Downloading all LoRAs..." && \
     curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2435339?type=Model&format=SafeTensor" \
     -o /comfyui/models/loras/analog-dreams.safetensors && \
-    echo "Download complete!"
-
-# Prof photo lora
-RUN echo "Downloading prof-photo LoRA..." && \
+    echo "analog-dreams LoRA downloaded" && \
     curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2271596?type=Model&format=SafeTensor" \
     -o /comfyui/models/loras/prof-photo.safetensors && \
-    echo "Download complete!"
-
-# Lenovo lora
-RUN echo "Downloading lenovo-ultrareal LoRA..." && \
+    echo "prof-photo LoRA downloaded" && \
     curl -L -H "Authorization: Bearer aae9ce012e1d88cbc7bcf0bb38f0eafe" \
     "https://civitai.com/api/download/models/2299345?type=Model&format=SafeTensor" \
     -o /comfyui/models/loras/lenovo-ultrareal.safetensors && \
-    echo "Download complete!"
+    echo "All LoRAs downloaded successfully!"
 
 # === DOWNLOAD OTHER MODELS (after CivitAI models) ===
 RUN comfy model download --url https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth --relative-path models/checkpoints --filename sam_vit_b_01ec64.pth
@@ -67,49 +60,50 @@ RUN comfy model download \
     --relative-path models/upscale_models \
     --filename 4xNomosWebPhoto_RealPLKSR.safetensors
 
-# === COMPREHENSIVE MODEL DIRECTORY DEBUG ===
-RUN echo "=========================================" && \
-    echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
-    echo "=========================================" && \
-    echo "" && \
-    echo "=== CHECKPOINTS (SDXL/SD models) ===" && \
-    ls -lah /comfyui/models/checkpoints/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== UNET (Flux/Lumina diffusion models) ===" && \
-    ls -lah /comfyui/models/unet/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== DIFFUSION_MODELS ===" && \
-    ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== LORAS ===" && \
-    ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
-    ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== CLIP ===" && \
-    ls -lah /comfyui/models/clip/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== VAE ===" && \
-    ls -lah /comfyui/models/vae/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== UPSCALE_MODELS ===" && \
-    ls -lah /comfyui/models/upscale_models/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== CONTROLNET ===" && \
-    ls -lah /comfyui/models/controlnet/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== EMBEDDINGS ===" && \
-    ls -lah /comfyui/embeddings/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== ULTRALYTICS ===" && \
-    ls -lah /comfyui/models/ultralytics/bbox/ 2>/dev/null || echo "Directory not found" && \
-    ls -lah /comfyui/models/ultralytics/segm/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "=== SAMS ===" && \
-    ls -lah /comfyui/models/sams/ 2>/dev/null || echo "Directory not found" && \
-    echo "" && \
-    echo "========================================="
+# === COMPREHENSIVE MODEL DIRECTORY DEBUG (commented out to speed up builds) ===
+# Uncomment this section if you need to debug model locations
+# RUN echo "=========================================" && \
+#     echo "COMPLETE MODEL DIRECTORY INVENTORY" && \
+#     echo "=========================================" && \
+#     echo "" && \
+#     echo "=== CHECKPOINTS (SDXL/SD models) ===" && \
+#     ls -lah /comfyui/models/checkpoints/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== UNET (Flux/Lumina diffusion models) ===" && \
+#     ls -lah /comfyui/models/unet/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== DIFFUSION_MODELS ===" && \
+#     ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== LORAS ===" && \
+#     ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
+#     ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== CLIP ===" && \
+#     ls -lah /comfyui/models/clip/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== VAE ===" && \
+#     ls -lah /comfyui/models/vae/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== UPSCALE_MODELS ===" && \
+#     ls -lah /comfyui/models/upscale_models/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== CONTROLNET ===" && \
+#     ls -lah /comfyui/models/controlnet/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== EMBEDDINGS ===" && \
+#     ls -lah /comfyui/embeddings/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== ULTRALYTICS ===" && \
+#     ls -lah /comfyui/models/ultralytics/bbox/ 2>/dev/null || echo "Directory not found" && \
+#     ls -lah /comfyui/models/ultralytics/segm/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "=== SAMS ===" && \
+#     ls -lah /comfyui/models/sams/ 2>/dev/null || echo "Directory not found" && \
+#     echo "" && \
+#     echo "========================================="
 
 # copy all input data (like images or videos) into comfyui (uncomment and adjust if needed)
 # COPY input/ /comfyui/input/

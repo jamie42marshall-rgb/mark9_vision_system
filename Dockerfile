@@ -1,6 +1,9 @@
 # clean base image containing only comfyui, comfy-cli and comfyui-manager
 FROM runpod/worker-comfyui:5.5.0-base
 
+# Force cache bust for curl installation
+ARG CACHEBUST=1
+
 # install custom nodes into comfyui
 RUN comfy node install --exit-on-fail comfyui-impact-pack@8.28.0
 RUN comfy node install --exit-on-fail comfyui_ultimatesdupscale@1.6.0
@@ -8,6 +11,9 @@ RUN comfy node install --exit-on-fail rgthree-comfy@1.0.2512112053
 RUN comfy node install --exit-on-fail RES4LYF
 RUN comfy node install --exit-on-fail comfyui-impact-subpack@1.3.5
 RUN comfy node install --exit-on-fail comfyui-custom-scripts@1.2.5
+
+# Install curl for CivitAI downloads
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # === DOWNLOAD CIVITAI MODELS FIRST (fail fast if these break) ===
 # Create directories for CivitAI models

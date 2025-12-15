@@ -88,9 +88,9 @@ RUN comfy model download \
 #     echo "=== DIFFUSION_MODELS ===" && \
 #     ls -lah /comfyui/models/diffusion_models/ 2>/dev/null || echo "Directory not found" && \
 #     echo "" && \
-#     echo "=== LORAS ===" && \
-#     ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
-#     echo "" && \
+     echo "=== LORAS ===" && \
+     ls -lah /comfyui/models/loras/ 2>/dev/null || echo "Directory not found" && \
+     echo "----- end loras -----" && \
 #     echo "=== TEXT_ENCODERS (CLIP/T5) ===" && \
 #     ls -lah /comfyui/models/text_encoders/ 2>/dev/null || echo "Directory not found" && \
 #     echo "" && \

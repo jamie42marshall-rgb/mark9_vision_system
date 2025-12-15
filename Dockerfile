@@ -21,10 +21,6 @@ RUN if [ -f /start.sh ]; then \
         exit 1; \
     fi
 
-# Install flash-attn for H100 optimization (adds ~2-3 minutes to build)
-# Comment this out if you want faster builds without flash attention
-RUN pip install flash-attn --no-build-isolation
-
 # Force cache bust for curl installation
 ARG CACHEBUST=1
 

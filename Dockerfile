@@ -2,11 +2,9 @@
 FROM runpod/worker-comfyui:5.5.0-base
 
 # === H100 GPU OPTIMIZATIONS ===
-# Set ComfyUI command line arguments for H100 performance
-ENV CLI_ARGS="--highvram --use-flash-attention --bf16-vae --fp8-e4m3fn-unet --preview-method none"
-
-# Also try the COMFYUI_ARGS variable (base image might use either)
-ENV COMFYUI_ARGS="--highvram --use-flash-attention --bf16-vae --fp8-e4m3fn-unet --preview-method none"
+# Modify /src/start.sh to support COMFY_EXTRA_ARGS environment variable
+# This adds our custom env var to both launch paths (local and serverless)
+RUN sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /src/start.sh
 
 # Force cache bust for curl installation
 ARG CACHEBUST=1

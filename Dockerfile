@@ -3,19 +3,11 @@ FROM runpod/worker-comfyui:5.5.0-base
 
 # === H100 GPU OPTIMIZATIONS ===
 # Modify start.sh to support COMFY_EXTRA_ARGS environment variable
-# Check both possible locations and modify whichever exists
+# Just do the sed replacement, no debug output (to avoid breaking script structure)
 RUN if [ -f /start.sh ]; then \
-        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /start.sh && \
-        echo 'echo "=== DEBUG: start.sh ComfyUI launch commands ==="' >> /start.sh && \
-        echo 'grep "python.*main.py" /start.sh | head -2' >> /start.sh && \
-        echo 'echo "=== COMFY_EXTRA_ARGS = ${COMFY_EXTRA_ARGS} ==="' >> /start.sh && \
-        echo 'echo "=== END DEBUG ==="' >> /start.sh; \
+        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /start.sh; \
     elif [ -f /src/start.sh ]; then \
-        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /src/start.sh && \
-        echo 'echo "=== DEBUG: start.sh ComfyUI launch commands ==="' >> /src/start.sh && \
-        echo 'grep "python.*main.py" /src/start.sh | head -2' >> /src/start.sh && \
-        echo 'echo "=== COMFY_EXTRA_ARGS = ${COMFY_EXTRA_ARGS} ==="' >> /src/start.sh && \
-        echo 'echo "=== END DEBUG ==="' >> /src/start.sh; \
+        sed -i 's|--log-stdout &|--log-stdout ${COMFY_EXTRA_ARGS} \&|g' /src/start.sh; \
     else \
         echo "ERROR: Could not find start.sh"; \
         exit 1; \
